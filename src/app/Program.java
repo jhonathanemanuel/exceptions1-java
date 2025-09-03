@@ -32,13 +32,10 @@ public class Program {
 			System.out.print("Check-out date (dd/MM/yyyy): ");
 			checkOut = LocalDate.parse(sc.next(), dtf);
 			
-			LocalDate now = LocalDate.now();
-			if (checkIn.isBefore(now) || checkOut.isBefore(now)) {
-				System.out.println("Error in reservation: Reservation dates for update must be future");
-			} else if (!checkOut.isAfter(checkIn)) {
-				System.out.println("Error in reservation: Check-out date must be after Check-in date");
+			String error = reserva.updateDates(checkIn, checkOut);
+			if (error != null) {
+				System.out.println("Error in reservation: " + error);
 			} else {
-				reserva.updateDates(checkIn, checkOut);
 				System.out.println("Reservation: " + reserva);
 			}
 		}
